@@ -110,6 +110,12 @@
 			}
 			else{
 				document.getElementById("anounce").value = "";
+				if (x.indexOf(',') > -1) {
+					x = x.slice(0,x.indexOf(',')) + "." + x.slice(x.indexOf(',') + 1);
+				}
+				if (y.indexOf(',') > -1) {
+					y = y.slice(0,y.indexOf(',')) + "." + y.slice(y.indexOf(',') + 1);
+				}
 				return true;
 
 			}

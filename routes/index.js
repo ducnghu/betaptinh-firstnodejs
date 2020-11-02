@@ -8,7 +8,15 @@ router.get('/', function(req, res, next) {
 
 router.post('/', (req, res)=> {
   const firstnum = req.body.firstnum;
+  x = firstnum;
+  if (x.indexOf(',') > -1) {
+    x = x.slice(0,x.indexOf(',')) + "." + x.slice(x.indexOf(',') + 1);
+  }
   const secondnum = req.body.secondnum;
+  y = secondnum;
+  if (y.indexOf(',') > -1) {
+    y = y.slice(0,y.indexOf(',')) + "." + y.slice(y.indexOf(',') + 1);
+  }
   const calc = req.body.calc;
   result = 0;
   pluschecked = "";
@@ -17,19 +25,19 @@ router.post('/', (req, res)=> {
   divchecked = "";
   if (calc == "plus")
   {
-    result = Number(firstnum) + Number(secondnum);
+    result = Number(x) + Number(y);
     pluschecked = "checked";
   } else if (calc == "sub")
   {
-    result = firstnum - secondnum;
+    result = x - y;
     subchecked = "checked";
   } else if (calc == "mul")
   {
-    result = firstnum * secondnum;
+    result = x * y;
     mulchecked = "checked";
   } else if (calc == "div")
   {
-    result = firstnum / secondnum;
+    result = x / y;
     divchecked = "checked";
   }
   res.render('index', { title: 'Bé tập tính', firstnum, secondnum, calc, result, pluschecked, subchecked, mulchecked, divchecked });

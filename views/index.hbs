@@ -1,0 +1,118 @@
+<div class="container center-me">
+		<div class="row">
+		<h1 class="row center-me">{{title}}</h1>
+		</div>
+		<form method="POST" class="form-group" name="frm" onsubmit="return checkValid(frm)">
+			<div class = "row">
+				<div class = "col-2 form-control">
+					<label for="firstnum">Số thứ nhất</label>
+				</div>
+				<div class = "col-3">
+					<input class=" form-control" type="text" id="firstnum" name="firstnum" value="{{firstnum}}" onfocusout="isNum1()">
+				</div>
+				<div class = "col-1 form-control">
+					<input type="radio" name="calc" value="plus" {{pluschecked}}>
+					<label>Cộng</label>
+				</div>
+				<div class = "col-1 form-control">
+					<input type="radio" name="calc" value="sub" {{subchecked}}>
+					<label>Trừ</label>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-2 form-control">
+					<label for="secondnum">Số thứ hai</label>
+				</div>
+				<div class = "col-3">
+					<input class=" form-control" type="text" id="secondnum" name="secondnum" value="{{secondnum}}" onfocusout="isNum2()">
+				</div>
+				<div class = "col-1 form-control">
+					<input type="radio" name="calc" value="mul" {{mulchecked}}>
+					<label>Nhân</label>
+				</div>
+				<div class = "col-1 form-control">
+					<input type="radio" name="calc" value="div" {{divchecked}}>
+					<label>Chia</label>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-2 form-control">
+					<label for="result">Kết quả</label>
+				</div>
+				<div class = "col-3">
+					<input class=" form-control" id="result" value="{{result}}" readonly></input>
+				</div>
+				<div class = "col-1">
+					<button type="submit" class="btn btn-primary form-control">Tính</button>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-2 form-control">
+					<label for="anounce">Thông báo</label>
+				</div>
+				<div class = "col-4">
+					<input class=" form-control" id="anounce" readonly></input>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+		function isNum(Id){
+			var flag = true;
+			var str = document.getElementById(Id).value;
+			if (str.indexOf('-') > 0) {flag = false;}
+			else if ((str.indexOf('.') != str.lastIndexOf('.')) 
+						|| (str.indexOf(',') != str.lastIndexOf(',')) 
+						|| (str.indexOf(',') > -1 && str.indexOf('.') > -1)) { flag = false;}
+			for (var i = 0; i < str.length; i++) {
+					if ((str[i] > '9' || str[i] < '0') && str[i] != '-' && str[i] != ',' && str[i] != '.') { flag = false;}
+			}
+			if (flag == false) {document.getElementById("anounce").value = "Dữ liệu nhập vào không phải số thực";}
+			else {document.getElementById("anounce").value = "";}
+			return flag;
+		}
+		function isNum1(){
+			return isNum("firstnum");
+		}
+		function isNum2(){
+			return isNum("secondnum");
+		}
+		function checkValid(frm){
+			document.getElementById("result").value = "";
+			var x = frm.firstnum.value;
+			var y = frm.secondnum.value;
+			var pt = frm.calc.value;
+
+			if (x.length == 0){
+				document.getElementById("anounce").value = "Chưa nhập số thứ nhất";
+				return false;
+			}
+			else if (isNum1() == false) {
+				document.getElementById("anounce").value = "Số thứ nhất không phải số thực";
+				return false;
+			}
+			else if (y.length == 0){
+				document.getElementById("anounce").value = "Chưa nhập số thứ hai";
+				return false;
+			}
+			else if (isNum2() == false) {
+				document.getElementById("anounce").value = "Số thứ hai không phải số thực";
+				return false;
+			}
+			else if (pt == "") {
+				document.getElementById("anounce").value = "Chưa chọn phép tính";
+				return false;
+			}
+			else if (pt == "div" && y == "0") {
+				document.getElementById("anounce").value = "Chia cho số 0";
+				return false;
+			}
+			else{
+				document.getElementById("anounce").value = "";
+				return true;
+
+			}
+			
+		}
+	</script>

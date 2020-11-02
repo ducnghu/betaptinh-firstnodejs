@@ -1,0 +1,20 @@
+div{
+	margin: 2px;
+}
+#anounce{
+	font-weight: bold;;
+	color: red;
+}
+#result{
+	font-weight: bold;;
+	color: green;
+}
+.center-me {
+  margin: 0 auto;
+}
+.container{
+	margin: 50px;
+}
+.container .row{
+	margin: 10px;
+}
